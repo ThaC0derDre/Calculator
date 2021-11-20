@@ -48,16 +48,26 @@ class ViewController: UIViewController {
         if let numbValue = sender.currentTitle{
             if didFinishTyping{
                 displayLabel.text = numbValue
+                if numbValue == "."{
+                    displayLabel.text = "0."
+                }
                 didFinishTyping = false
             }else{
+                
+                if numbValue == "."{
+                    if let anotherDecimal = displayLabel.text{
+                        if anotherDecimal.contains("."){
+                            return
+                        }
+                    }
+                        
+                    }
                 displayLabel.text! += numbValue
             }
         }
         
-        
-        
-        
     }
 
 }
+
 
