@@ -8,25 +8,26 @@
 
 import Foundation
 
-class Calculatorlogic {
-    let number: Double
+struct Calculatorlogic {
+    private var number: Double?
     
-    init (number: Double){
+    mutating func changeNumb(_ number: Double){
         self.number = number
     }
-    
-    func workOut(symbol: String) -> Double{
-        var theLabel:Double
+    func workOut(symbol: String) -> Double?{
+        if var n = number{
         switch symbol {
         case "AC":
-            theLabel = 0
+            n = 0
         case "+/-":
-            theLabel = number * -1
+            n *= -1
         case "%":
-            theLabel  = number * 0.01
+            n *= 0.01
         default:
             fatalError("Unknown Button Pressed!")
         }
-        return theLabel
+        return n
+    }
+        return nil
     }
 }

@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var displayLabel: UILabel!
     
     private var didFinishTyping = true
+    private var calc = Calculatorlogic()
     private var displayValue: Double{
         get {
             guard let dubNumb = Double(displayLabel.text!) else {
@@ -24,18 +25,18 @@ class ViewController: UIViewController {
             displayLabel.text = String(newValue)
         }
     }
-    
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         //What should happen when a non-number button is pressed
         
         didFinishTyping = true
         
         if let button = sender.currentTitle{
-            let calculator = Calculatorlogic(number: displayValue)
-            displayValue = calculator.workOut(symbol: button)
+            calc.changeNumb(displayValue)
+            if let workedOut = calc.workOut(symbol: button){
+                displayValue = workedOut
+            }
             }
         }
-    
     
     
     @IBAction func numButtonPressed(_ sender: UIButton) {
