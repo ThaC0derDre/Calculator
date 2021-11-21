@@ -26,29 +26,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
-        
         //What should happen when a non-number button is pressed
         
         didFinishTyping = true
         
-        if let Button = sender.currentTitle{
-            switch Button{
-            case "AC":
-                displayLabel.text = "0"
-            case "+/-":
-                displayValue *= -1
-            case "%":
-                displayValue *= 0.01
-            default:
-                fatalError("Unknown Button Pressed!")
+        if let button = sender.currentTitle{
+            let calculator = Calculatorlogic(number: displayValue)
+            displayValue = calculator.workOut(symbol: button)
             }
         }
-        
-    }
+    
     
     
     @IBAction func numButtonPressed(_ sender: UIButton) {
-        
         //What should happen when a number is entered into the keypad
         
         if let numbValue = sender.currentTitle{
