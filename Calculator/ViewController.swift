@@ -10,36 +10,42 @@ import UIKit
 
 class ViewController: UIViewController {
     
-  
+    
     @IBOutlet weak var displayLabel: UILabel!
     
-    var didFinishTyping = true
-    
+    private var didFinishTyping = true
+    private var displayValue: Double{
+        get {
+            guard let dubNumb = Double(displayLabel.text!) else {
+                fatalError("Error converting text to Double!")
+            }
+            return dubNumb
+        } set {
+            displayLabel.text = String(newValue)
+        }
+    }
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
         //What should happen when a non-number button is pressed
-    
+        
         didFinishTyping = true
         
-        guard let dubNumb = Double(displayLabel.text!) else {
-            fatalError("Error converting text to Double!")
-        }
         if let Button = sender.currentTitle{
             switch Button{
             case "AC":
                 displayLabel.text = "0"
             case "+/-":
-                displayLabel.text = String(dubNumb * -1)
+                displayValue *= -1
             case "%":
-                displayLabel.text = String(dubNumb * 0.01)
+                displayValue *= 0.01
             default:
                 fatalError("Unknown Button Pressed!")
             }
         }
         
     }
-
+    
     
     @IBAction func numButtonPressed(_ sender: UIButton) {
         
@@ -53,21 +59,17 @@ class ViewController: UIViewController {
                 }
                 didFinishTyping = false
             }else{
-                
                 if numbValue == "."{
                     if let anotherDecimal = displayLabel.text{
                         if anotherDecimal.contains("."){
                             return
                         }
                     }
-                        
-                    }
+                }
                 displayLabel.text! += numbValue
             }
         }
-        
     }
-
 }
 
 
