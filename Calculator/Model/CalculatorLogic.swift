@@ -10,11 +10,11 @@ import Foundation
 
 struct Calculatorlogic {
     private var number: Double?
-    
+    private var inputHolder: (n1:Double, operation:String)?
     mutating func changeNumb(_ number: Double){
         self.number = number
     }
-    func workOut(symbol: String) -> Double?{
+    mutating func workOut(symbol: String) -> Double?{
         if var n = number{
         switch symbol {
         case "AC":
@@ -23,11 +23,31 @@ struct Calculatorlogic {
             n *= -1
         case "%":
             n *= 0.01
+        case "=":
+            return computeTwoNumbers(n2: n)
         default:
-            fatalError("Unknown Button Pressed!")
+            inputHolder = (n1:n, operation:symbol)
         }
         return n
     }
         return nil
+    }
+   private func computeTwoNumbers (n2:Double) -> Double? {
+        if let n = inputHolder?.n1,
+           let op = inputHolder?.operation {
+            switch op{
+            case "÷":
+                return n / n2
+            case "×":
+                return n * n2
+            case "+":
+                return n + n2
+            case "-":
+                return n - n2
+            default:
+                fatalError("Could not compute two numbs")
+            }
+        }
+       return nil
     }
 }
